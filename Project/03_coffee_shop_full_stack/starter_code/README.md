@@ -35,3 +35,8 @@ The `./frontend` directory contains a complete Ionic frontend to consume the dat
 [View the README.md within ./frontend for more details.](./frontend/README.md)
 
 ### Notes from development process
+- Running virtual environment with pip3.8
+- Running project on Python 3.8.0 
+- Error: File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/Crypto/PublicKey/RSA.py", line 585 except ValueError, IndexError: ^ SyntaxError: invalid syntax
+- Solution: https://stackoverflow.com/questions/54838166/importerror-cannot-import-name-rsa-from-crypto-publickey
+
