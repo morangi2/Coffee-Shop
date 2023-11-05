@@ -37,6 +37,12 @@ The `./frontend` directory contains a complete Ionic frontend to consume the dat
 ### Notes from development process
 - Running virtual environment with pip3.8
 - Running project on Python 3.8.0 
+- To access DB created; open terminal and run: sqlite3 full_path_to_db
+- To access tables ==> .tables
+Setup Error 1
 - Error: File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/Crypto/PublicKey/RSA.py", line 585 except ValueError, IndexError: ^ SyntaxError: invalid syntax
 - Solution: https://stackoverflow.com/questions/54838166/importerror-cannot-import-name-rsa-from-crypto-publickey
+Setup Error 2
+- Error: ssl.SSLCertVerificationError: when running auth0 authentication on flask up [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1108)
+- Solution: https://stackoverflow.com/questions/52805115/certificate-verify-failed-unable-to-get-local-issuer-certificate
 

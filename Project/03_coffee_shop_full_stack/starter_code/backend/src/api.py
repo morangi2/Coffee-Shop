@@ -58,9 +58,9 @@ def get_drinks():
         or appropriate status code indicating reason for failure
 '''
 @app.route('/drinks-detail')
-@requires_auth('get:drinks_detail')
+@requires_auth('get:drinks-detail')
 def get_drinks_detail(payload):
-    if 'get:drinks_detail' in payload['permissions']:
+    if 'get:drinks-detail' in payload['permissions']:
         drinks = Drink.query.all()
 
         long_drinks = [drink.long() for drink in drinks]
@@ -87,27 +87,21 @@ def get_drinks_detail(payload):
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
 def post_drinks(payload):
-    body_input = request.get_json()
-
-    title_input = body_input.get('title')
-    recipe_input = body_input.get('recipe')
+    title_input = request.get_json().get("title")
+    recipe_input = json.dumps(request.get_json().get("recipe"))
 
     if 'post:drinks' in payload['permissions']:
-        if not ('title' in body_input and 'recipe' in body_input):
-            abort(422)
-        
-        try:
-            new_drink = Drink(title=title_input, recipe=str(recipe_input))
-            new_drink.insert()
+        drink = Drink(title=title_input, recipe=str(recipe_input))
+        drink.insert()
 
-            return jsonify(
-                {
-                    'success': True,
-                    'drinks': [new_drink.long()]
-                }
-            )
-        except:
-            abort(422)
+        return jsonify(
+            {
+                'drink': drink.long(),
+                'success': True
+            }
+        )
+    else:
+        abort(AuthError)
     
 
 
@@ -138,10 +132,10 @@ def patch_drinks(payload, drink_id):
             else:
                 body_input = request.get_json()
                 title_input = body_input.get('title')
-                recipe_input = body_input.get('recipe')
+                #recipe_input = body_input.get('recipe')
 
                 drink.title = title_input
-                drink.recipe = recipe_input
+                #drink.recipe = recipe_input
                 drink.update()
 
                 return jsonify(
@@ -187,6 +181,8 @@ def delete_drinks(payload, drink_id):
                 )
         except:
             abort(404)
+    else:
+        print('*************DELETE DRINKS ERROR*************')
 
 
 
